@@ -5,19 +5,17 @@
 
 def main():
     n, m = map(int, input().split())
-    G = [0] * m
+    l = []
+    r = []
     ans = 0
     for i in range(m):
-        G[i] = list(map(int, input().split()))
+        a, b = map(int, input().split())
+        l.append(a)
+        r.append(b)
+    ml = max(l)
+    mr = min(r)
     for i in range(1, n+1):
-        f = 0
-        for j in range(m):
-            if i < G[j][0] or G[j][1] < i:
-                f = 0
-                break
-            else:
-                f = 1
-        if f == 1:
+        if i >= ml and i <= mr:
             ans += 1
     print(ans)
 
