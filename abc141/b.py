@@ -13,10 +13,10 @@ def main():
     ans = "Yes"
     for i in range(len(S)):
         if (i+1) % 2 == 1:
-            if S[i] is "L":
+            if S[i] == "L":
                 ans = "No"
         else:
-            if S[i] is "R":
+            if S[i] == "R":
                 ans = "No"
         if ans == "No":
             print(ans)
