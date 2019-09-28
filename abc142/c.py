@@ -11,12 +11,9 @@ def input():
 def main():
     N = int(input())
     A = list(map(int, input().split()))
-    I = range(1, N+1)
-    dic = dict(zip(I, A))
-    dic2 = sorted(dic.items(), key=lambda x: x[1])
-    ans = []
-    for i in dic2:
-        ans.append(i[0])
+    ans = [None] * N
+    for i in range(N):
+        ans[A[i]-1] = i+1
     print(*ans)
 
 
