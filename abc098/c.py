@@ -1,5 +1,5 @@
 #
-# abc079 c
+# abc096 c
 #
 
 import sys
@@ -18,37 +18,45 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """1222"""
-        output = """1+2+2+2=7"""
+        input = """5
+WEEWW"""
+        output = """1"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """0290"""
-        output = """0-2+9+0=7"""
+        input = """12
+WEWEWEEEWWWE"""
+        output = """4"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """3242"""
-        output = """3+2+4-2=7"""
+        input = """8
+WWWWWEEE"""
+        output = """3"""
         self.assertIO(input, output)
 
 
 def resolve():
-    N = input()
+    N = int(input())
+    S = list(input())
 
-    for bit in range(1 << 3):
-        S = ""
-        for j in range(3):
-            S += N[j]
-            if bit & (1 << j) == 0:
-                op = "+"
-            else:
-                op = "-"
-            S += op
-        S += N[3]
-        if eval(S) == 7:
-            print(S+"=7")
-            break
+    W = [0] * N
+    E = [0] * N
+    L = 0
+    R = 0
+
+    for i in range(N):
+        if S[i] == "W":
+            L += 1
+        if S[N-1-i] == "E":
+            R += 1
+        W[i] = L
+        E[N-1-i] = R
+
+    ans = float("inf")
+    for i in range(N):
+        ans = min(ans, E[i]+W[i]-1)
+    print(ans)
 
 
 if __name__ == "__main__":

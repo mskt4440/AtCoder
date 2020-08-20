@@ -1,7 +1,6 @@
 #
-# abc079 c
+# abc088 c
 #
-
 import sys
 from io import StringIO
 import unittest
@@ -18,37 +17,50 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """1222"""
-        output = """1+2+2+2=7"""
+        input = """1 0 1
+2 1 2
+1 0 1"""
+        output = """Yes"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """0290"""
-        output = """0-2+9+0=7"""
+        input = """2 2 2
+2 1 2
+2 2 2"""
+        output = """No"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """3242"""
-        output = """3+2+4-2=7"""
+        input = """0 8 8
+0 8 8
+0 8 8"""
+        output = """Yes"""
+        self.assertIO(input, output)
+
+    def test_入力例_4(self):
+        input = """1 8 6
+2 9 7
+0 7 7"""
+        output = """No"""
         self.assertIO(input, output)
 
 
 def resolve():
-    N = input()
+    c = []
+    for _ in range(3):
+        c.append(list(map(int, input().split())))
 
-    for bit in range(1 << 3):
-        S = ""
-        for j in range(3):
-            S += N[j]
-            if bit & (1 << j) == 0:
-                op = "+"
-            else:
-                op = "-"
-            S += op
-        S += N[3]
-        if eval(S) == 7:
-            print(S+"=7")
-            break
+    a1 = 0
+    b1 = c[0][0] - a1
+    b2 = c[0][1] - a1
+    b3 = c[0][2] - a1
+    a2 = c[1][0] - b1
+    a3 = c[2][0] - b1
+
+    if a2+b2 == c[1][1] and a2+b3 == c[1][2] and a3+b2 == c[2][1] and a3+b3 == c[2][2]:
+        print("Yes")
+    else:
+        print("No")
 
 
 if __name__ == "__main__":

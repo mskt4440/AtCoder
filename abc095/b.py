@@ -1,7 +1,6 @@
 #
-# abc079 c
+# abc095 b
 #
-
 import sys
 from io import StringIO
 import unittest
@@ -18,37 +17,39 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """1222"""
-        output = """1+2+2+2=7"""
+        input = """3 1000
+120
+100
+140"""
+        output = """9"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """0290"""
-        output = """0-2+9+0=7"""
+        input = """4 360
+90
+90
+90
+90"""
+        output = """4"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """3242"""
-        output = """3+2+4-2=7"""
+        input = """5 3000
+150
+130
+150
+130
+110"""
+        output = """26"""
         self.assertIO(input, output)
 
 
 def resolve():
-    N = input()
-
-    for bit in range(1 << 3):
-        S = ""
-        for j in range(3):
-            S += N[j]
-            if bit & (1 << j) == 0:
-                op = "+"
-            else:
-                op = "-"
-            S += op
-        S += N[3]
-        if eval(S) == 7:
-            print(S+"=7")
-            break
+    N, X = map(int, input().split())
+    m = []
+    for _ in range(N):
+        m.append(int(input()))
+    print((X - sum(m)) // min(m) + N)
 
 
 if __name__ == "__main__":

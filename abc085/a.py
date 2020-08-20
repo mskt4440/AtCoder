@@ -1,7 +1,6 @@
 #
-# abc079 c
+# abc085 a
 #
-
 import sys
 from io import StringIO
 import unittest
@@ -18,37 +17,18 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """1222"""
-        output = """1+2+2+2=7"""
+        input = """2017/01/07"""
+        output = """2018/01/07"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """0290"""
-        output = """0-2+9+0=7"""
-        self.assertIO(input, output)
-
-    def test_入力例_3(self):
-        input = """3242"""
-        output = """3+2+4-2=7"""
+        input = """2017/01/31"""
+        output = """2018/01/31"""
         self.assertIO(input, output)
 
 
 def resolve():
-    N = input()
-
-    for bit in range(1 << 3):
-        S = ""
-        for j in range(3):
-            S += N[j]
-            if bit & (1 << j) == 0:
-                op = "+"
-            else:
-                op = "-"
-            S += op
-        S += N[3]
-        if eval(S) == 7:
-            print(S+"=7")
-            break
+    print(input().replace("7", "8", 1))
 
 
 if __name__ == "__main__":

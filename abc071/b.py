@@ -1,7 +1,6 @@
 #
-# abc079 c
+# abc071 b
 #
-
 import sys
 from io import StringIO
 import unittest
@@ -18,37 +17,32 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """1222"""
-        output = """1+2+2+2=7"""
+        input = """atcoderregularcontest"""
+        output = """b"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """0290"""
-        output = """0-2+9+0=7"""
+        input = """abcdefghijklmnopqrstuvwxyz"""
+        output = """None"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """3242"""
-        output = """3+2+4-2=7"""
+        input = """fajsonlslfepbjtsaayxbymeskptcumtwrmkkinjxnnucagfrg"""
+        output = """d"""
         self.assertIO(input, output)
 
 
 def resolve():
-    N = input()
-
-    for bit in range(1 << 3):
-        S = ""
-        for j in range(3):
-            S += N[j]
-            if bit & (1 << j) == 0:
-                op = "+"
-            else:
-                op = "-"
-            S += op
-        S += N[3]
-        if eval(S) == 7:
-            print(S+"=7")
+    S = input()
+    n = [0 for _ in range(26)]
+    for i in range(len(S)):
+        n[ord(S[i]) - ord("a")] = 1
+    for i in range(26):
+        if n[i] == 0:
+            print(chr(ord("a")+i))
             break
+    else:
+        print("None")
 
 
 if __name__ == "__main__":

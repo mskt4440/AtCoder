@@ -1,5 +1,5 @@
 #
-# abc079 c
+# abc081 c
 #
 
 import sys
@@ -18,37 +18,38 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """1222"""
-        output = """1+2+2+2=7"""
+        input = """5 2
+1 1 2 2 5"""
+        output = """1"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """0290"""
-        output = """0-2+9+0=7"""
+        input = """4 4
+1 1 2 2"""
+        output = """0"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """3242"""
-        output = """3+2+4-2=7"""
+        input = """10 3
+5 1 3 2 4 1 1 2 3 4"""
+        output = """3"""
         self.assertIO(input, output)
 
 
 def resolve():
-    N = input()
-
-    for bit in range(1 << 3):
-        S = ""
-        for j in range(3):
-            S += N[j]
-            if bit & (1 << j) == 0:
-                op = "+"
-            else:
-                op = "-"
-            S += op
-        S += N[3]
-        if eval(S) == 7:
-            print(S+"=7")
-            break
+    N, K = map(int, input().split())
+    a = list(map(int, input().split()))
+    an = [0] * N
+    for i in a:
+        an[i-1] += 1
+    an.sort(reverse=True)
+    ans = 0
+    for i in an:
+        if K == 0:
+            ans += i
+        else:
+            K -= 1
+    print(ans)
 
 
 if __name__ == "__main__":
