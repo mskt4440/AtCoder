@@ -1,7 +1,6 @@
 #
-# abc144 b
+# abc106 b
 #
-
 import sys
 from io import StringIO
 import unittest
@@ -18,32 +17,29 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """10"""
-        output = """Yes"""
+        input = """105"""
+        output = """1"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """50"""
-        output = """No"""
-        self.assertIO(input, output)
-
-    def test_入力例_3(self):
-        input = """81"""
-        output = """Yes"""
+        input = """7"""
+        output = """0"""
         self.assertIO(input, output)
 
 
 def resolve():
     N = int(input())
 
-    ans = "No"
-    for i in range(1, 10):
-        if ans == "Yes":
-            break
-        for j in range(1, 10):
-            if i*j == N:
-                ans = "Yes"
-                break
+    ans = 0
+    for i in range(1, N+1):
+        if i % 2 == 0:
+            continue
+        t = 0
+        for j in range(1, N+1):
+            if i % j == 0:
+                t += 1
+        if t == 8:
+            ans += 1
     print(ans)
 
 

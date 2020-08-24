@@ -1,5 +1,5 @@
 #
-# abc144 b
+# abc095 c
 #
 
 import sys
@@ -18,32 +18,29 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """10"""
-        output = """Yes"""
+        input = """1500 2000 1600 3 2"""
+        output = """7900"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """50"""
-        output = """No"""
+        input = """1500 2000 1900 3 2"""
+        output = """8500"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """81"""
-        output = """Yes"""
+        input = """1500 2000 500 90000 100000"""
+        output = """100000000"""
         self.assertIO(input, output)
 
 
 def resolve():
-    N = int(input())
+    A, B, C, X, Y = map(int, input().split())
 
-    ans = "No"
-    for i in range(1, 10):
-        if ans == "Yes":
-            break
-        for j in range(1, 10):
-            if i*j == N:
-                ans = "Yes"
-                break
+    ans = float("inf")
+    for i in range(2*max(X, Y)+1):
+        a = max(0, X - i//2)
+        b = max(0, Y - i//2)
+        ans = min(ans, A*a+B*b+C*i)
     print(ans)
 
 
