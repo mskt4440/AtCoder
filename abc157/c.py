@@ -1,10 +1,9 @@
 #
-# abc133 b
+# abc157 c
 #
 import sys
 from io import StringIO
 import unittest
-from math import sqrt
 
 
 class TestClass(unittest.TestCase):
@@ -18,49 +17,49 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """3 2
-1 2
-5 5
--2 8"""
-        output = """1"""
+        input = """3 3
+1 7
+3 2
+1 7"""
+        output = """702"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """3 4
--3 7 8 2
--12 1 10 2
--2 8 9 3"""
-        output = """2"""
+        input = """3 2
+2 1
+2 3"""
+        output = """-1"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """5 1
-1
-2
-3
-4
-5"""
-        output = """10"""
+        input = """3 1
+1 0"""
+        output = """-1"""
         self.assertIO(input, output)
 
 
-def resolve():
-    N, D = map(int, input().split())
-    X = [list(map(int, input().split())) for _ in range(N)]
+def resolve2():
+    N, M = map(int, input().split())
+    SC = [list(map(int, input().split())) for _ in range(M)]
+    SC = list(set(map(tuple, SC)))
+    SC.sort()
 
-    ans = 0
-    for i, x1 in enumerate(X):
-        for x2 in X[i+1:]:
-            tmp = 0
-            for j in range(D):
-                tmp += (x2[j]-x1[j])**2
-            tmp = sqrt(tmp)
-            if tmp.is_integer() == True:
-                ans += 1
+    ans = -1
+    for i in range(10**N):
+        si = str(i)
+        if len(si) != N:
+            continue
+        for sc in SC:
+            s, c = sc
+            if si[s-1] != str(c):
+                break
+        else:
+            ans = i
+            break
 
     print(ans)
 
 
 if __name__ == "__main__":
-    # unittest.main()
-    resolve()
+    unittest.main()
+    # resolve()
