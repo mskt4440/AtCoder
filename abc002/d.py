@@ -2,39 +2,76 @@
 # abc002 d
 #
 import sys
-import itertools
+from io import StringIO
+import unittest
 
 
-def input():
-    return sys.stdin.readline().rstrip()
+class TestClass(unittest.TestCase):
+    def assertIO(self, input, output):
+        stdout, stdin = sys.stdout, sys.stdin
+        sys.stdout, sys.stdin = StringIO(), StringIO(input)
+        resolve()
+        sys.stdout.seek(0)
+        out = sys.stdout.read()[:-1]
+        sys.stdout, sys.stdin = stdout, stdin
+        self.assertEqual(out, output)
+
+    def test_入力例_1(self):
+        input = """5 3
+1 2
+2 3
+1 3"""
+        output = """3"""
+        self.assertIO(input, output)
+
+    def test_入力例_2(self):
+        input = """5 3
+1 2
+2 3
+3 4"""
+        output = """2"""
+        self.assertIO(input, output)
+
+    def test_入力例_3(self):
+        input = """7 9
+1 2
+1 3
+2 3
+4 5
+4 6
+4 7
+5 6
+5 7
+6 7"""
+        output = """4"""
+        self.assertIO(input, output)
+
+    def test_入力例_4(self):
+        input = """12 0"""
+        output = """1"""
+        self.assertIO(input, output)
 
 
-def main():
+def resolve():
     N, M = map(int, input().split())
-    friend = [[0] * N for _ in range(N)]
-    for i in range(M):
-        x, y = map(int, input().split())
-        friend[x-1][y-1] = 1
-        friend[y-1][x-1] = 1
+    XY = [list(map(int, input().split())) for _ in range(M)]
 
-    ans = 0
+    ans = 1
     for bit in range(1 << N):
-        group = []
-        for i in range(N):
-            if bit & (1 << i):
-                group.append(i)
-
-        flag = True
-        for i in itertools.combinations(group, 2):
-            if friend[i[0]][i[1]] == 0:
-                flag = False
-                break
-
-        if flag:
-            ans = max(ans, len(group))
+        n = bin(bit).count("1")
+        if n < 2:
+            continue
+        l = 0
+        for xy in XY:
+            x, y = xy
+            if 1 << (x-1) & bit == 1 << (x-1) and 1 << (y-1) & bit == 1 << (y-1):
+                l += 1
+        if n*(n-1)/2 == l:
+            ans = max(ans, n)
 
     print(ans)
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    unittest.main()
+    # resolve()

@@ -5,6 +5,7 @@
 import sys
 from io import StringIO
 import unittest
+from collections import deque
 
 
 class TestClass(unittest.TestCase):
@@ -43,7 +44,7 @@ class TestClass(unittest.TestCase):
         self.assertIO(input, output)
 
 
-def resolve():
+def resolve_bit():
     N, M = map(int, input().split())
     S = [list(map(int, input().split())) for _ in range(M)]
     P = list(map(int, input().split()))
@@ -63,6 +64,42 @@ def resolve():
         if m == M:
             ans += 1
     print(ans)
+
+
+def resolve():
+    global N, M, KS, P
+    N, M = map(int, input().split())
+    KS = [list(map(int, input().split())) for _ in range(M)]
+    P = list(map(int, input().split()))
+
+    ONS = deque()
+    print(dfs(0, ONS))
+
+
+def dfs(n, T):
+    if n == N:
+        onm = 0
+        for i, ks in enumerate(KS):
+            k, s = ks[0], ks[1:]
+            onsn = 0
+            for t in T:
+                if t in s:
+                    onsn += 1
+            if onsn % 2 != P[i]:
+                break
+            else:
+                onm += 1
+        if onm == M:
+            return 1
+        else:
+            return 0
+
+    ans = 0
+    T.append(n+1)
+    ans += dfs(n+1, T)
+    T.pop()
+    ans += dfs(n+1, T)
+    return ans
 
 
 if __name__ == "__main__":
