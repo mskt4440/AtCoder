@@ -4,6 +4,7 @@
 import sys
 from io import StringIO
 import unittest
+from collections import deque
 
 
 class TestClass(unittest.TestCase):
@@ -51,7 +52,7 @@ class TestClass(unittest.TestCase):
         self.assertIO(input, output)
 
 
-def resolve():
+def resolve_bit():
     N = int(input())
     C = []
     for i in range(N):
@@ -70,6 +71,44 @@ def resolve():
         if f == True:
             ans = max(ans, bin(bit).count("1"))
     print(ans)
+
+
+def resolve():
+    global N, C
+    N = int(input())
+    C = []
+    for i in range(N):
+        a = int(input())
+        C.append([list(map(int, input().split())) for j in range(a)])
+
+    V = deque()
+    print(dfs(0, V))
+
+
+def dfs(n, V):
+    if n == N:
+        count = 0
+        for v in V:
+            if count == -1:
+                break
+            for c in C[v-1]:
+                if (c[0] in V and c[1] == 0) or (c[0] not in V and c[1] == 1):
+                    count = -1
+                    break
+            else:
+                count += 1
+        if count == -1:
+            return 0
+        else:
+            return count
+
+    ans = 0
+    V.append(n+1)
+    ans = max(ans, dfs(n+1, V))
+    V.pop()
+    ans = max(ans, dfs(n+1, V))
+
+    return ans
 
 
 if __name__ == "__main__":
