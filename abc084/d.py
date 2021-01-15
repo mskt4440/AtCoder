@@ -78,5 +78,5 @@ def resolve():
 
 
 if __name__ == "__main__":
-    unittest.main()
-    # resolve()
+    # unittest.main()
+    resolve()
