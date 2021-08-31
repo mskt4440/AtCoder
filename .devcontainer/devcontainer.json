@@ -4,7 +4,7 @@
 	"dockerFile": "Dockerfile",
 	"settings": {
 		"terminal.integrated.defaultProfile.linux": "ash",
-		"python.pythonPath": "/usr/local/bin/python",
+		"python.defaultInterpreterPath": "/usr/local/bin/python",
 		"python.linting.enabled": true,
 		"python.linting.pylintEnabled": true,
 		"python.formatting.autopep8Path": "/usr/local/bin/autopep8",
