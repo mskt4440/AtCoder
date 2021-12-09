@@ -1,5 +1,5 @@
 #
-# abc045 c
+# abc045 b
 #
 import sys
 from io import StringIO
@@ -17,32 +17,40 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """125"""
-        output = """176"""
+        input = """aca
+accc
+ca"""
+        output = """A"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """9999999999"""
-        output = """12656242944"""
+        input = """abcb
+aacb
+bccc"""
+        output = """C"""
         self.assertIO(input, output)
 
 
 def resolve():
-    S = input()
-    L = len(S)
+    A = list(input()) + [0]
+    B = list(input()) + [0]
+    C = list(input()) + [0]
 
-    ans = 0
-    for bit in range(1 << L-1):
-        s = ""
-        for i in range(L):
-            if 1 << i & bit:
-                s += S[i]
-                s += "+"
-            else:
-                s += S[i]
-        ans += eval(s)
+    T = "a"
+    while len(A) and len(B) and len(C):
+        if T == "a":
+            T = A.pop(0)
+        elif T == "b":
+            T = B.pop(0)
+        else:
+            T = C.pop(0)
 
-    print(ans)
+    if len(A) == 0:
+        print("A")
+    elif len(B) == 0:
+        print("B")
+    else:
+        print("C")
 
 
 if __name__ == "__main__":
