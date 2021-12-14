@@ -1,19 +1,48 @@
 #
 # abc131 b
 #
+import sys
+from io import StringIO
+import unittest
 
 
-def main():
+class TestClass(unittest.TestCase):
+    def assertIO(self, input, output):
+        stdout, stdin = sys.stdout, sys.stdin
+        sys.stdout, sys.stdin = StringIO(), StringIO(input)
+        resolve()
+        sys.stdout.seek(0)
+        out = sys.stdout.read()[:-1]
+        sys.stdout, sys.stdin = stdout, stdin
+        self.assertEqual(out, output)
+
+    def test_入力例_1(self):
+        input = """5 2"""
+        output = """18"""
+        self.assertIO(input, output)
+
+    def test_入力例_2(self):
+        input = """3 -1"""
+        output = """0"""
+        self.assertIO(input, output)
+
+    def test_入力例_3(self):
+        input = """30 -50"""
+        output = """-1044"""
+        self.assertIO(input, output)
+
+
+def resolve():
     N, L = map(int, input().split())
-    pia = int((L + L + N - 1) * N / 2)
 
-    eat = L
-    for i in range(1, N+1):
-        if abs(eat) > abs(L+i-1):
-            eat = L+i-1
+    T = []
+    for i in range(N):
+        T.append(L+i)
+    T.sort(key=lambda x: abs(x))
 
-    print(pia - eat)
+    print(sum(T[1:]))
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    # unittest.main()
+    resolve()
