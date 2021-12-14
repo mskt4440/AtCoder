@@ -31,11 +31,9 @@ def resolve():
     I = list(map(int, input().split()))
 
     ans = "No"
-    for bit in range(1 << 3):
+    for bit in range(1, 1 << 3):
         e = 0
         ne = 0
-        if "1" not in bin(bit):
-            continue
         for i in range(4):
             if bit & 1 << i:
                 e += I[i]
