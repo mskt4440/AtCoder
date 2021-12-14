@@ -1,5 +1,5 @@
 #
-# abc133 c
+# abc133 d
 #
 import sys
 from io import StringIO
@@ -17,27 +17,39 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """2020 2040"""
-        output = """2"""
+        input = """3
+2 2 4"""
+        output = """4 0 4"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """4 5"""
-        output = """20"""
+        input = """5
+3 8 7 5 5"""
+        output = """2 4 12 2 8"""
+        self.assertIO(input, output)
+
+    def test_入力例_3(self):
+        input = """3
+1000000000 1000000000 0"""
+        output = """0 2000000000 0"""
         self.assertIO(input, output)
 
 
 def resolve():
-    L, R = map(int, input().split())
+    N = int(input())
+    A = list(map(int, input().split()))
 
-    ans = L * R % 2019
-    if R - L >= 2019:
-        ans = 0
-    else:
-        for i in range(L, R+1):
-            for j in range(i+1, R+1):
-                ans = min(ans, i*j % 2019)
-    print(ans)
+    S = sum(A)
+    X = []
+    x0 = S
+    for i in range(1, N, 2):
+        x0 -= 2*A[i]
+    X.append(x0)
+
+    for i in range(N-1):
+        X.append(2*A[i]-X[i])
+
+    print(*X)
 
 
 if __name__ == "__main__":
