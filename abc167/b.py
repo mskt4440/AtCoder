@@ -1,5 +1,5 @@
 #
-# abc167 d
+# abc167 b
 #
 import sys
 from io import StringIO
@@ -17,37 +17,25 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """4 5
-3 2 4 1"""
-        output = """4"""
+        input = """2 1 1 3"""
+        output = """2"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """6 727202214173249351
-6 5 2 5 3 2"""
-        output = """2"""
+        input = """1 2 3 4"""
+        output = """0"""
+        self.assertIO(input, output)
+
+    def test_入力例_3(self):
+        input = """2000000000 0 0 2000000000"""
+        output = """2000000000"""
         self.assertIO(input, output)
 
 
 def resolve():
-    N, K = map(int, input().split())
-    A = list(map(int, input().split()))
+    A, B, C, K = map(int, input().split())
 
-    F = [False]*N
-    F[0] = True
-    P = [0]
-    p = 0
-    for i in range(K):
-        p = A[p]-1
-        if F[p]:
-            break
-        P.append(p)
-        F[p] = True
-
-    d = P.index(p)
-    ans = (K-d) % (len(P)-d)+d
-
-    print(P[ans]+1)
+    print(min(A, K) - max(K-A-B, 0))
 
 
 if __name__ == "__main__":

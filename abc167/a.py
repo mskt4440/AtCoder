@@ -1,5 +1,5 @@
 #
-# abc167 d
+# abc167 a
 #
 import sys
 from io import StringIO
@@ -17,37 +17,32 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """4 5
-3 2 4 1"""
-        output = """4"""
+        input = """chokudai
+chokudaiz"""
+        output = """Yes"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """6 727202214173249351
-6 5 2 5 3 2"""
-        output = """2"""
+        input = """snuke
+snekee"""
+        output = """No"""
+        self.assertIO(input, output)
+
+    def test_入力例_3(self):
+        input = """a
+aa"""
+        output = """Yes"""
         self.assertIO(input, output)
 
 
 def resolve():
-    N, K = map(int, input().split())
-    A = list(map(int, input().split()))
+    S = input()
+    T = input()
 
-    F = [False]*N
-    F[0] = True
-    P = [0]
-    p = 0
-    for i in range(K):
-        p = A[p]-1
-        if F[p]:
-            break
-        P.append(p)
-        F[p] = True
-
-    d = P.index(p)
-    ans = (K-d) % (len(P)-d)+d
-
-    print(P[ans]+1)
+    if T.find(S) == 0:
+        print("Yes")
+    else:
+        print("No")
 
 
 if __name__ == "__main__":
