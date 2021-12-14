@@ -1,5 +1,5 @@
 #
-# abc093 c
+# abc093 b
 #
 import sys
 from io import StringIO
@@ -17,32 +17,49 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """2 5 4"""
-        output = """2"""
+        input = """3 8 2"""
+        output = """3
+4
+7
+8"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """2 6 3"""
-        output = """5"""
+        input = """4 8 3"""
+        output = """4
+5
+6
+7
+8"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """31 41 5"""
-        output = """23"""
+        input = """2 9 100"""
+        output = """2
+3
+4
+5
+6
+7
+8
+9"""
         self.assertIO(input, output)
 
 
 def resolve():
-    I = list(map(int, input().split()))
-    I.sort()
+    A, B, K = map(int, input().split())
 
-    t = 2*I[2]-I[0]-I[1]
-    # X = max(A, B, C)
-    if t % 2 == 0:
-        print(t//2)
-    # X = max(A, B, C) + 1
-    else:
-        print((t+3)//2)
+    ans = []
+    for i in range(K):
+        if A+i <= B and A+i not in ans:
+            ans.append(A+i)
+        if B-i >= A and B-i not in ans:
+            ans.append(B-i)
+
+    ans.sort()
+
+    for a in ans:
+        print(a)
 
 
 if __name__ == "__main__":
