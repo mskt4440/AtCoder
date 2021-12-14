@@ -1,5 +1,5 @@
 #
-# abc209 a
+# abc209 e
 #
 import sys
 from io import StringIO
@@ -17,24 +17,39 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """2 4"""
-        output = """3"""
+        input = """3
+abcd
+bcda
+ada"""
+        output = """Aoki
+Takahashi
+Draw"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """10 100"""
-        output = """91"""
+        input = """1
+ABC"""
+        output = """Draw"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """3 2"""
-        output = """0"""
+        input = """5
+eaaaabaa
+eaaaacaa
+daaaaaaa
+eaaaadaa
+daaaafaa"""
+        output = """Takahashi
+Takahashi
+Takahashi
+Aoki
+Takahashi"""
         self.assertIO(input, output)
 
 
 def resolve():
-    A, B = map(int, input().split())
-    print(max(0, B-A+1))
+    N = int(input())
+    S = [input() for _ in range(N)]
 
 
 if __name__ == "__main__":
