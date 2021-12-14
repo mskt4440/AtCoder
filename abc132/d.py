@@ -1,9 +1,10 @@
 #
-# abc132 b
+# abc132 d
 #
 import sys
 from io import StringIO
 import unittest
+import math
 
 
 class TestClass(unittest.TestCase):
@@ -17,28 +18,31 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """5
-1 3 5 4 2"""
-        output = """2"""
+        input = """5 3"""
+        output = """3
+6
+1"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """9
-9 6 3 2 5 8 7 4 1"""
-        output = """5"""
+        input = """2000 3"""
+        output = """1998
+3990006
+327341989"""
         self.assertIO(input, output)
 
 
 def resolve():
-    N = int(input())
-    P = list(map(int, input().split()))
+    N, K = map(int, input().split())
 
-    ans = 0
-    for i in range(N-2):
-        if P[i] < P[i+1] < P[i+2] or P[i] > P[i+1] > P[i+2]:
-            ans += 1
-
-    print(ans)
+    for i in range(K):
+        if N-K+1 >= i+1:
+            r = math.factorial(N-K+1)//(math.factorial(N-K-i)
+                                        * math.factorial(i+1))
+            b = math.factorial(K-1)//(math.factorial(K-1-i)*math.factorial(i))
+            print((r*b) % (10**9+7))
+        else:
+            print(0)
 
 
 if __name__ == "__main__":
