@@ -1,5 +1,5 @@
 #
-# abc150 b
+# abc150 a
 #
 import sys
 from io import StringIO
@@ -17,30 +17,30 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """10
-ZABCDBABCQ"""
-        output = """2"""
+        input = """2 900"""
+        output = """Yes"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """19
-THREEONEFOURONEFIVE"""
-        output = """0"""
+        input = """1 501"""
+        output = """No"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """33
-ABCCABCBABCCABACBCBBABCBCBCBCABCB"""
-        output = """5"""
+        input = """4 2000"""
+        output = """Yes"""
         self.assertIO(input, output)
 
 
 def resolve():
-    N = int(input())
-    S = input()
-    print(S.count("ABC"))
+    K, X = map(int, input().split())
+
+    if K*500 >= X:
+        print("Yes")
+    else:
+        print("No")
 
 
 if __name__ == "__main__":
     # unittest.main()
-    # resolve()
+    resolve()
